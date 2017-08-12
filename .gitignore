@@ -23,3 +23,5 @@ src/LeetCode/Debug/mt.read.1.tlog
 src/LeetCode/Debug/mt.write.1.tlog
 src/LeetCode/Debug/vc100.idb
 src/LeetCode/Debug/vc100.pdb
+/src/ipch
+/src/Debug
