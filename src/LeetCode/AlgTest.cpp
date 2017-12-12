@@ -29,10 +29,10 @@ TreeNode* CAlgTest::GetBinaryTreeObj()
 		m_pBtTree = new TreeNode(3);
 		TreeNode *pLeft = new TreeNode(9);
 		TreeNode *pRight = new TreeNode(20);
-		m_pBtTree->left = pLeft;
-		m_pBtTree->right = pRight;
+		m_pBtTree->m_pLeft = pLeft;
+		m_pBtTree->m_pRight = pRight;
 
-		pRight->left = new TreeNode(15);
+		pRight->m_pLeft = new TreeNode(15);
 		//pRight->right = new TreeNode(7);
 	}
 	return m_pBtTree;	
@@ -66,12 +66,12 @@ int CAlgTest::Dfs( TreeNode* root, int sum )
 		return 0;
 	}
 
-	if (root->val == sum)
+	if (root->m_nVal == sum)
 	{
 		return 1;
 	}
 
-	return Dfs(root->left, sum - root->val) + Dfs(root->left, sum - root->val);
+	return Dfs(root->m_pLeft, sum - root->m_nVal) + Dfs(root->m_pLeft, sum - root->m_nVal);
 }
 
 vector<vector<int>> CAlgTest::levelOrderBottom_107( TreeNode *root )
@@ -96,32 +96,32 @@ vector<vector<int>> CAlgTest::levelOrderBottom_107( TreeNode *root )
 			switch (iNumber)
 			{
 			case 102:
-				tResult.push_back(vTNode[i]->val);//自左向右
+				tResult.push_back(vTNode[i]->m_nVal);//自左向右
 				break;
 
 			case 103:
 				if (0 != iLevel%2)
 				{
-					tResult.push_back(vTNode[i]->val);//自左向右
+					tResult.push_back(vTNode[i]->m_nVal);//自左向右
 				}
 				else
 				{
-					tResult.insert(tResult.begin(), vTNode[i]->val);//自右向左
+					tResult.insert(tResult.begin(), vTNode[i]->m_nVal);//自右向左
 				}
 				break;
 
 			case 107:
-				tResult.push_back(vTNode[i]->val);//自左向右
+				tResult.push_back(vTNode[i]->m_nVal);//自左向右
 				break;
 			}			
 
-			if (vTNode[i]->left)
+			if (vTNode[i]->m_pLeft)
 			{
-				vTNode.push_back(vTNode[i]->left);
+				vTNode.push_back(vTNode[i]->m_pLeft);
 			}
-			if (vTNode[i]->right)
+			if (vTNode[i]->m_pRight)
 			{
-				vTNode.push_back(vTNode[i]->right);
+				vTNode.push_back(vTNode[i]->m_pRight);
 			}
 		}
 		switch (iNumber)
@@ -160,14 +160,14 @@ int CAlgTest::minDeepth_111( TreeNode *root )
 		int vSize = vTNode.size();
 		for (; i<vSize; i++)
 		{
-			if (NULL == vTNode[i]->left || NULL == vTNode[i]->right)
+			if (NULL == vTNode[i]->m_pLeft || NULL == vTNode[i]->m_pRight)
 			{
 				return iLevel;
 			}
 			else
 			{
-				vTNode.push_back(vTNode[i]->left);
-				vTNode.push_back(vTNode[i]->right);
+				vTNode.push_back(vTNode[i]->m_pLeft);
+				vTNode.push_back(vTNode[i]->m_pRight);
 			}
 		}
 	}
@@ -180,15 +180,15 @@ bool CAlgTest::isBalanced_110( TreeNode *root )
 	{
 		return true;
 	}
-	if (NULL == root->left && NULL == root->right)
+	if (NULL == root->m_pLeft && NULL == root->m_pRight)
 	{
 		return true;
 	}
 
-	TreeNode *pOtherNode = root->right;
-	if (NULL == root->left && pOtherNode)
+	TreeNode *pOtherNode = root->m_pRight;
+	if (NULL == root->m_pLeft && pOtherNode)
 	{
-		if (!pOtherNode->left && !pOtherNode)
+		if (!pOtherNode->m_pLeft && !pOtherNode)
 		{
 			return true;
 		}
@@ -198,10 +198,10 @@ bool CAlgTest::isBalanced_110( TreeNode *root )
 		}
 	}
 
-	pOtherNode = root->left;
-	if (NULL == root->right && pOtherNode)
+	pOtherNode = root->m_pLeft;
+	if (NULL == root->m_pRight && pOtherNode)
 	{
-		if (!pOtherNode->left && !pOtherNode)
+		if (!pOtherNode->m_pLeft && !pOtherNode)
 		{
 			return true;
 		}
@@ -210,7 +210,7 @@ bool CAlgTest::isBalanced_110( TreeNode *root )
 			return false;
 		}
 	}
-	return isBalanced_110(root->left) && isBalanced_110(root->right);
+	return isBalanced_110(root->m_pLeft) && isBalanced_110(root->m_pRight);
 }
 
 int CAlgTest::Strstr_28( string haystack, string needle )

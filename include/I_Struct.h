@@ -12,10 +12,12 @@
 using namespace std;
 using std::bitset;
 struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	int m_nVal;
+	TreeNode *m_pLeft;
+	TreeNode *m_pRight;
+	TreeNode(int x) : m_nVal(x), m_pLeft(NULL), m_pRight(NULL) 
+	{
+	}
 };
 
 struct ListNode {

@@ -1,7 +1,5 @@
 #include "LeetCode.h"
 
-
-CLeetCode* CLeetCode::m_pLeetCode = NULL;
 CLeetCode::CLeetCode(void)
 {
 }
@@ -12,20 +10,17 @@ CLeetCode::~CLeetCode(void)
 
 CLeetCode* CLeetCode::GetInstance()
 {
-	if (NULL == m_pLeetCode)
-	{
-		m_pLeetCode = new CLeetCode();
-	}
-	return m_pLeetCode;
+	static CLeetCode tLeetCode;
+	return &tLeetCode;
 }
 
-int CLeetCode::pathSum_437_Method_whl( TreeNode* root, int sum )
+int CLeetCode::pathSum_E437_Method_whl( TreeNode* root, int sum )
 {
 	if (!root)
 	{
 		return 0;
 	}
-	return pathSumDFS(root, sum) + pathSumDFS(root->left, sum - root->val) + pathSumDFS(root->right, sum - root->val);
+	return pathSumDFS(root, sum) + pathSumDFS(root->m_pLeft, sum - root->m_nVal) + pathSumDFS(root->m_pRight, sum - root->m_nVal);
 }
 
 int CLeetCode::pathSumDFS( TreeNode* root, int sum )
@@ -34,11 +29,11 @@ int CLeetCode::pathSumDFS( TreeNode* root, int sum )
 	{
 		return 0;
 	}
-	if (sum == root->val)
+	if (sum == root->m_nVal)
 	{
 		return 1;
 	}
-	return pathSumDFS(root->left, sum - root->val) + pathSumDFS(root->right, sum - root->val);
+	return pathSumDFS(root->m_pLeft, sum - root->m_nVal) + pathSumDFS(root->m_pRight, sum - root->m_nVal);
 }
 
 vector<vector<int>> CLeetCode::levelOrderBottom_107( TreeNode* root )
@@ -57,14 +52,14 @@ vector<vector<int>> CLeetCode::levelOrderBottom_107( TreeNode* root )
 		int vSize = vTNode.size();
 		for (; i<vSize; i++)
 		{
-			tResult.push_back(vTNode[i]->val);//自左向右
-			if (vTNode[i]->left)
+			tResult.push_back(vTNode[i]->m_nVal);//自左向右
+			if (vTNode[i]->m_pLeft)
 			{
-				vTNode.push_back(vTNode[i]->left);
+				vTNode.push_back(vTNode[i]->m_pLeft);
 			}
-			if (vTNode[i]->right)
+			if (vTNode[i]->m_pRight)
 			{
-				vTNode.push_back(vTNode[i]->right);
+				vTNode.push_back(vTNode[i]->m_pRight);
 			}
 		}
 		vResult.insert(vResult.begin(), tResult);//自下而上
@@ -88,14 +83,14 @@ vector<vector<int>> CLeetCode::levelOrder_102( TreeNode* root )
 		int vSize = vTNode.size();
 		for (; i<vSize; i++)
 		{
-			tResult.push_back(vTNode[i]->val);//自左向右
-			if (vTNode[i]->left)
+			tResult.push_back(vTNode[i]->m_nVal);//自左向右
+			if (vTNode[i]->m_pLeft)
 			{
-				vTNode.push_back(vTNode[i]->left);
+				vTNode.push_back(vTNode[i]->m_pLeft);
 			}
-			if (vTNode[i]->right)
+			if (vTNode[i]->m_pRight)
 			{
-				vTNode.push_back(vTNode[i]->right);
+				vTNode.push_back(vTNode[i]->m_pRight);
 			}
 		}
 		//vResult.insert(vResult.begin(), tResult);//自下而上
@@ -123,20 +118,20 @@ vector<vector<int>> CLeetCode::zigzagLevelOrder_103( TreeNode* root )
 		{
 			if (0 != iLevel%2)
 			{
-				tResult.push_back(vTNode[i]->val);//自左向右
+				tResult.push_back(vTNode[i]->m_nVal);//自左向右
 			}
 			else
 			{
-				tResult.insert(tResult.begin(), vTNode[i]->val);//自左向右
+				tResult.insert(tResult.begin(), vTNode[i]->m_nVal);//自左向右
 			}
 
-			if (vTNode[i]->left)
+			if (vTNode[i]->m_pLeft)
 			{
-				vTNode.push_back(vTNode[i]->left);
+				vTNode.push_back(vTNode[i]->m_pLeft);
 			}
-			if (vTNode[i]->right)
+			if (vTNode[i]->m_pRight)
 			{
-				vTNode.push_back(vTNode[i]->right);
+				vTNode.push_back(vTNode[i]->m_pRight);
 			}
 		}
 		//vResult.insert(vResult.begin(), tResult);//自下而上
@@ -164,19 +159,19 @@ int CLeetCode::minDepth_111( TreeNode* root )
 		int vSize = vTNode.size();
 		for (; i<vSize; i++)
 		{
-			if (NULL == vTNode[i]->left && NULL == vTNode[i]->right)
+			if (NULL == vTNode[i]->m_pLeft && NULL == vTNode[i]->m_pRight)
 			{
 				return iLevel;
 			} 
 			else
 			{
-				if (vTNode[i]->left)
+				if (vTNode[i]->m_pLeft)
 				{
-					vTNode.push_back(vTNode[i]->left);
+					vTNode.push_back(vTNode[i]->m_pLeft);
 				}
-				if (vTNode[i]->right)
+				if (vTNode[i]->m_pRight)
 				{
-					vTNode.push_back(vTNode[i]->right);
+					vTNode.push_back(vTNode[i]->m_pRight);
 				}
 			}
 		}
@@ -202,13 +197,13 @@ int CLeetCode::maxDepth_104( TreeNode* root )
 		int vSize = vTNode.size();
 		for (; i<vSize; i++)
 		{	
-			if (vTNode[i]->left)
+			if (vTNode[i]->m_pLeft)
 			{
-				vTNode.push_back(vTNode[i]->left);
+				vTNode.push_back(vTNode[i]->m_pLeft);
 			}
-			if (vTNode[i]->right)
+			if (vTNode[i]->m_pRight)
 			{
-				vTNode.push_back(vTNode[i]->right);
+				vTNode.push_back(vTNode[i]->m_pRight);
 			}
 		}
 	}
@@ -221,14 +216,14 @@ bool CLeetCode::isBalanced_110( TreeNode* root )
 	{
 		return true;
 	}
-	if (!root->left && !root->right)
+	if (!root->m_pLeft && !root->m_pRight)
 	{
 		return true;
 	}
-	TreeNode *pOtherNode = root->right;
-	if (!root->left && pOtherNode)
+	TreeNode *pOtherNode = root->m_pRight;
+	if (!root->m_pLeft && pOtherNode)
 	{
-		if (!pOtherNode->left && !pOtherNode->right)
+		if (!pOtherNode->m_pLeft && !pOtherNode->m_pRight)
 		{
 			return true;
 		}
@@ -238,10 +233,10 @@ bool CLeetCode::isBalanced_110( TreeNode* root )
 		}
 	}
 
-	pOtherNode = root->left;
-	if (!root->right && pOtherNode)
+	pOtherNode = root->m_pLeft;
+	if (!root->m_pRight && pOtherNode)
 	{
-		if (!pOtherNode->left && !pOtherNode->right)
+		if (!pOtherNode->m_pLeft && !pOtherNode->m_pRight)
 		{
 			return true;
 		}
@@ -250,7 +245,7 @@ bool CLeetCode::isBalanced_110( TreeNode* root )
 			return false;
 		}
 	}
-	return isBalanced_110(root->left) && isBalanced_110(root->right);
+	return isBalanced_110(root->m_pLeft) && isBalanced_110(root->m_pRight);
 }
 bool isBadVersion(int version)
 {
@@ -2605,7 +2600,7 @@ bool CLeetCode::hasPathSum_E112( TreeNode* root, int sum )
 		return false;
 	}
 
-	if (NULL == root->left && NULL == root->right && sum == root->val)
+	if (NULL == root->m_pLeft && NULL == root->m_pRight && sum == root->m_nVal)
 	{
 		//bIsHave = true;
 		return true;
@@ -2615,11 +2610,76 @@ bool CLeetCode::hasPathSum_E112( TreeNode* root, int sum )
 	////{
 	////	return true;
 	////}
-	return hasPathSum_E112(root->left, sum - root->val) || hasPathSum_E112(root->right, sum - root->val);
+	return hasPathSum_E112(root->m_pLeft, sum - root->m_nVal) || hasPathSum_E112(root->m_pRight, sum - root->m_nVal);
 }
 
 vector<vector<int>> CLeetCode::pathSum_M113( TreeNode* root, int sum )
 {
-	vector<vector<int>> T;
-	return T;
+	vector<vector<int>> vResult;
+	vector<TreeNode *> vPath;
+	pathSum_M113_helper(root, sum, vPath, vResult);
+	
+	return vResult;
+}
+
+bool CLeetCode::pathSum_M113_helper( TreeNode *root, int sum, vector<TreeNode *> &vPath, vector<vector<int>> &vResult )
+{
+	if (NULL == root)
+	{
+		return false;
+	}
+	vPath.push_back(root);
+	bool bIsLeaf = (NULL == root->m_pRight) && (NULL == root->m_pLeft);
+	if (bIsLeaf && sum == root->m_nVal)
+	{
+		vector<int> vTemp;
+		//for (size_t i=0; i<vPath.size(); i++)
+		//{
+		//	vTemp.push_back(vPath[i]->m_nVal);
+		//}
+		vTemp.assign(vPath.begin(), vPath.end());//该方式比用循环的方式更好，参见《Effective STL 第5条》
+		vResult.push_back(vTemp);
+		vPath.pop_back();
+		return true;
+	}
+
+	if (pathSum_M113_helper(root->m_pLeft, sum-root->m_nVal, vPath, vResult))
+	{
+		//vPath.pop_back();
+	}
+
+	if (pathSum_M113_helper(root->m_pRight, sum-root->m_nVal, vPath, vResult))
+	{
+		//vPath.pop_back();
+	}
+	vPath.pop_back();
+	return false;
+}
+
+TreeNode* CLeetCode::GetTree()
+{
+	static TreeNode tRoot(5);
+	static TreeNode tLeft(4);
+	static TreeNode tRight(8);
+	tRoot.m_pLeft = &tLeft;
+	tRoot.m_pRight = &tRight;
+
+	static TreeNode tRoot1(11);
+	static TreeNode tLeft1(7);
+	static TreeNode tRight1(2);
+	tRoot1.m_pLeft = &tLeft1;
+	tRoot1.m_pRight = &tRight1;
+	tRoot.m_pLeft->m_pLeft = &tRoot1;
+
+	
+	static TreeNode tRoot2(4);
+	static TreeNode tLeft2(5);
+	static TreeNode tRight2(1);
+	tRoot2.m_pLeft = &tLeft2;
+	tRoot2.m_pRight = &tRight2;
+	tRoot.m_pRight->m_pRight = &tRoot2;
+
+	static TreeNode tRoot3(13);
+	tRoot.m_pRight->m_pLeft = &tRoot3;
+	return &tRoot;
 }

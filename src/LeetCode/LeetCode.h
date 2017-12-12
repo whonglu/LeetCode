@@ -18,8 +18,8 @@ private:
 	~CLeetCode(void);
 public:
 	static CLeetCode* GetInstance();
-private:
-	static CLeetCode* m_pLeetCode;
+
+	TreeNode* GetTree();
 public:
 #pragma region 公用操作
 	bool isAlphaNumeric(char ch);//判断是否是数字或字母
@@ -29,7 +29,7 @@ public:
 
 
 #pragma region Tree
-
+#pragma region 组1
 	/*! \fn.
 	* \brief E112. Path Sum.
 	* \details 给定一个二叉树和一个值sum，判断是否存在一个从根节点到叶子节点的路径，使得路径上每个节点值之和等于sum?
@@ -41,6 +41,8 @@ public:
 	* \details 给定一个二叉树和一个值sum，找出从根节点到叶子节点的和等于sum的所有路径?
 	*/
 	vector<vector<int>> pathSum_M113(TreeNode* root, int sum);//113. Path Sum II
+	bool pathSum_M113_helper(TreeNode *root, int sum, vector<TreeNode *> &vPath, vector<vector<int>> &vResult);
+
 	/*! \fn int pathSum_437(TreeNode* root, int sum).
 	* \brief 437. Path Sum III.
 	* \details   求二叉树中定义LeetCode中的题库.
@@ -48,8 +50,12 @@ public:
 	* \param[in] sum  和.
 	* \return 和为sum的所有路径的个数.
 	*/
-	int pathSum_437_Method_whl(TreeNode* root, int sum);
+	int pathSum_E437_Method_whl(TreeNode* root, int sum);
 	int pathSumDFS(TreeNode* root, int sum);
+#pragma endregion
+
+
+	
 #pragma region 按层级遍历
 	/*! \fn vector<vector<int>> levelOrderBottom_107(TreeNode* root).
 	* \brief 107. Binary Tree Level Order Traversal II.
